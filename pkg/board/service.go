@@ -8,6 +8,6 @@ import (
 
 type Service interface {
 	Get(ctx context.Context) ([]internal.BoardPost, error)
-	Post(ctx context.Context, post string) (string, error)
+	Post(ctx context.Context, post *internal.BoardPost) (string, error)
 	ServiceStatus(ctx context.Context) (int, error)
 }

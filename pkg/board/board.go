@@ -23,14 +23,14 @@ func (b *boardService) Get(_ context.Context) ([]internal.BoardPost, error) {
 	return []internal.BoardPost{post}, nil
 }
 
-func (b *boardService) Post(_ context.Context) (string, error) {
+func (b *boardService) Post(_ context.Context, post *internal.BoardPost) (string, error) {
 	newPostId := shortuuid.New()
 	return newPostId, nil
 }
 
 func (b *boardService) ServiceStatus(_ context.Context) (int, error) {
 	logger.Log("Checking service health...")
-	return http.StatusOk, nil
+	return http.StatusOK, nil
 }
 
 var logger log.Logger
