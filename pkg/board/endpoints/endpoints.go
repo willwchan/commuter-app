@@ -77,7 +77,7 @@ func (s *Set) Post(ctx context.Context, post *internal.BoardPost) (string, error
 	if postResp.Err != "" {
 		return "", errors.New(postResp.Err)
 	}
-	return postResp.postId, nil
+	return postResp.PostId, nil
 }
 
 func (s *Set) ServiceStatus(ctx context.Context) (int, error) {
