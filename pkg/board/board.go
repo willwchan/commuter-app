@@ -7,7 +7,7 @@ import (
 
 	"github.com/willwchan/commuter-app/internal"
 
-	"github.com/go-kit/kit/log"
+	"github.com/go-kit/log"
 	"github.com/lithammer/shortuuid/v3"
 )
 
@@ -27,6 +27,10 @@ func (b *boardService) Post(_ context.Context, post *internal.BoardPost) (string
 	newPostId := shortuuid.New()
 	return newPostId, nil
 }
+
+//func (b *boardService) Delete(_ context.Context, postId string) (string, error) {
+//	return postId, nil
+//}
 
 func (b *boardService) ServiceStatus(_ context.Context) (int, error) {
 	logger.Log("Checking service health...")
