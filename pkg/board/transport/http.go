@@ -20,8 +20,40 @@ func NewHttpHandler(ep endpoints.Set) http.Handler {
 		decodeHttpServiceStatusRequest,
 		encodeResponse,
 	))
+	m.Handle("/get", httptransport.NewServer(
+		ep.GetEndpoint,
+		decodeHttpGetRequest,
+		encodeResponse,
+	))
+	m.Handle("/post", httptransport.NewServer(
+		ep.PostEndpoint,
+		decodeHttpPostRequest,
+		encodeResponse,
+	))
 
 	return m
+}
+
+func decodeHttpGetRequest(ctx context.Context, r *http.Request) (interface{}, error) {
+	var req endpoints.GetRequest
+	if r.ContentLength == 0 {
+		logger.Log("Get request does not have a body")
+		return req, nil
+	}
+	err := json.NewDecoder(r.Body).Decode(&req)
+	if err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+func decodeHttpPostRequest(ctx context.Context, r *http.Request) (interface{}, error) {
+	var req endpoints.PostRequest
+	err := json.NewDecoder(r.Body).Decode(&req)
+	if err != nil {
+		return nil, err
+	}
+	return req, nil
 }
 
 func decodeHttpServiceStatusRequest(_ context.Context, _ *http.Request) (interface{}, error) {
