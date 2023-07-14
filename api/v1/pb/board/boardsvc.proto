@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "api/v1/pb/board";
+
+service Board {
+    rpc Get (GetRequest) returns (GetReply) {}
+    rpc Post (PostRequest) returns (PostReply) {}
+    rpc ServiceStatus (ServiceStatusRequest) returns (ServiceStatusReply) {}
+}
+
+message BoardPost {
+    string content = 1;
+    string author = 2;
+}
+
+message GetRequest {}
+
+message GetReply {
+    repeated BoardPost boardposts = 1;
+    string err = 2;
+}
+
+message PostRequest {
+    BoardPost board = 1;
+}
+
+message PostReply {
+    string postId = 1;
+    string err = 2;
+}
+
+message ServiceStatusRequest{}
+
+message ServiceStatusReply {
+    int64 code = 1;
+    string err = 2;
+}
